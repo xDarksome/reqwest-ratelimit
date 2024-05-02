@@ -26,9 +26,9 @@
 //! }
 //! ```
 use async_trait::async_trait;
+use http::Extensions;
 use reqwest::{Request, Response};
 use reqwest_middleware::{Next, Result};
-use task_local_extensions::Extensions;
 
 /// Request rate limiter.
 #[async_trait]
@@ -52,7 +52,7 @@ impl<R: RateLimiter> reqwest_middleware::Middleware for Middleware<R> {
     async fn handle(
         &self,
         req: Request,
-        extensions: &mut Extensions,
+        extensions: &'_ mut Extensions,
         next: Next<'_>,
     ) -> Result<Response> {
         self.rate_limiter.acquire_permit().await;
