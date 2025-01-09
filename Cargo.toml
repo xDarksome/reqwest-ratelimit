@@ -1,7 +1,7 @@
 [package]
 name = "reqwest-ratelimit"
 authors = ["Darksome <dev@darksome.com>"]
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 description = "Rate-limit middleware for reqwest."
 repository = "https://github.com/xDarksome/reqwest-ratelimit"
@@ -13,4 +13,4 @@ categories = ["web-programming::http-client"]
 async-trait = "0.1"
 http = "1.1.0"
 reqwest = { version = "0.12.0", default-features = false }
-reqwest-middleware = "0.3.0"
+reqwest-middleware = "0.4.0"
