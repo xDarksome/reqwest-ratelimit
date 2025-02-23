@@ -1,6 +1,6 @@
 //! Middleware to rate-limit requests built on [`reqwest_middleware`].
 //!
-//! You're exected to provide your own [`RateLimiter`] implementation.
+//! You're expected to provide your own [`RateLimiter`] implementation.
 //!
 //! ## Example
 //!
