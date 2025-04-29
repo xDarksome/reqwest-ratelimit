@@ -18,8 +18,8 @@ use reqwest_middleware::{ClientBuilder, ClientWithMiddleware};
 struct RateLimiter;
 
 impl reqwest_ratelimit::RateLimiter for RateLimiter {
-    fn acquire_permit(&self) -> impl Future<Output = ()> + Send + 'static {
-        async { () } // noop
+    async fn acquire_permit(&self) {
+        // noop
     }
 }
 

@@ -11,8 +11,8 @@
 //! struct RateLimiter;
 //!
 //! impl reqwest_ratelimit::RateLimiter for RateLimiter {
-//!     fn acquire_permit(&self) -> impl Future<Output = ()> + Send + 'static {
-//!         async { () } // noop
+//!     async fn acquire_permit(&self) {
+//!         // noop
 //!     }
 //! }
 //!
@@ -34,7 +34,7 @@ use reqwest_middleware::{Next, Result};
 /// Request rate limiter.
 pub trait RateLimiter: Send + Sync + 'static {
     /// Acquires a permit to issue the next request.
-    fn acquire_permit(&self) -> impl Future<Output = ()> + Send + 'static;
+    fn acquire_permit(&self) -> impl Future<Output = ()> + Send + '_;
 }
 
 /// Creates a new [`Middleware`] rate-limiting all requests using the provided [`RateLimiter`].
