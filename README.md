@@ -12,15 +12,14 @@ For a batteries included example please refer to [reqwest-leaky-bucket](https://
 ## Usage
 
 ```rust
-use async_trait::async_trait;
+use std::future::Future;
 use reqwest_middleware::{ClientBuilder, ClientWithMiddleware};
 
 struct RateLimiter;
 
-#[async_trait]
 impl reqwest_ratelimit::RateLimiter for RateLimiter {
-    async fn acquire_permit(&self) {
-        // noop
+    fn acquire_permit(&self) -> impl Future<Output = ()> + Send + 'static {
+        async { () } // noop
     }
 }
 

@@ -5,15 +5,14 @@
 //! ## Example
 //!
 //! ```
-//! use async_trait::async_trait;
+//! use std::future::Future;
 //! use reqwest_middleware::{ClientBuilder, ClientWithMiddleware};
 //!
 //! struct RateLimiter;
 //!
-//! #[async_trait]
 //! impl reqwest_ratelimit::RateLimiter for RateLimiter {
-//!     async fn acquire_permit(&self) {
-//!         // noop
+//!     fn acquire_permit(&self) -> impl Future<Output = ()> + Send + 'static {
+//!         async { () } // noop
 //!     }
 //! }
 //!
@@ -25,16 +24,17 @@
 //!     client.get("https://crates.io").send().await.unwrap();
 //! }
 //! ```
+use std::future::Future;
+
 use async_trait::async_trait;
 use http::Extensions;
 use reqwest::{Request, Response};
 use reqwest_middleware::{Next, Result};
 
 /// Request rate limiter.
-#[async_trait]
 pub trait RateLimiter: Send + Sync + 'static {
     /// Acquires a permit to issue the next request.
-    async fn acquire_permit(&self);
+    fn acquire_permit(&self) -> impl Future<Output = ()> + Send + 'static;
 }
 
 /// Creates a new [`Middleware`] rate-limiting all requests using the provided [`RateLimiter`].
