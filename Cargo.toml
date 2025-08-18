@@ -12,5 +12,5 @@ categories = ["web-programming::http-client"]
 [dependencies]
 async-trait = "0.1"
 http = "1.1.0"
-reqwest = { version = "0.12.0", default-features = false }
+reqwest = { version = "0.12.23", default-features = false }
 reqwest-middleware = "0.4.0"
